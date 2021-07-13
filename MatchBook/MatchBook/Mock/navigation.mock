@@ -1,0 +1,47 @@
+[
+    {
+        "name": "Sport",
+        "tree-id": 1,
+        "id": 1,
+        "url-name": "sport",
+        "meta-tags": [
+            {
+                "name": "Cricket",
+                "id": 110,
+                "type": "SPORT",
+                "url-name": "cricket",
+                "meta-tags": [
+                    {
+                        "name": "One Day Internationals",
+                        "id": 343857493550021,
+                        "type": "COMPETITION",
+                        "url-name": "one-day-internationals",
+                        "meta-tags": []
+                    },
+                    {
+                        "name": "T20 Internationals",
+                        "id": 1520925174080003,
+                        "type": "COMPETITION",
+                        "url-name": "t20-Internationals",
+                        "meta-tags": []
+                    }
+                ]
+            },
+            {
+                "name": "Australian Rules",
+                "id": 112,
+                "type": "SPORT",
+                "url-name": "australian-rules",
+                "meta-tags": [
+                    {
+                        "name": "AFL",
+                        "id": 440496918480010,
+                        "type": "COMPETITION",
+                        "url-name": "afl",
+                        "meta-tags": []
+                    }
+                ]
+            }
+        ]
+    }
+]
