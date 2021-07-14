@@ -14,4 +14,6 @@ protocol NavigationMenuManagerDelegate: class {
 
 protocol NavigationMenuControllerDelegate: BaseControllerDelegate {
     func gotoEventPage()
+    func setModel(model: [NavigationUIModel])
+    func showAlert(errorMessage: String)
 }

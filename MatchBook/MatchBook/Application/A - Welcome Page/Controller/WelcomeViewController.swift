@@ -40,12 +40,21 @@ class WelcomeViewController: BaseViewController<WelcomeManager> {
     }
 }
 
+extension WelcomeViewController: NavigationSelectionDelegate {
+    func selectedItem(_ item: NavigationUIModel) {
+        let eventVC = EventsViewController.storyboardInstance()
+        self.navigationItem.backButtonTitle = "Home"
+        eventVC.setModel(model: item)
+        self.navigationController?.pushViewController(eventVC, animated: true)
+    }
+}
+
 extension WelcomeViewController: WelcomeControllerDelegate {
     func openNavigationPage() {
-
-        
         let navVC = NavigationMenuViewController.storyboardInstance()
-        // !! NavigationMenuViewController is a MENU and not a UINavigationViewController
+        if let rootNavVC = navVC.viewControllers[0] as? NavigationMenuViewController {
+            rootNavVC.selectionDelegate = self
+        }
         navVC.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         let transition = CATransition()
         transition.duration = 0.25
