@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct NavigationResponseModel: Codable {
-    var itemsList: [NavigationItemModel]
+struct NavigationResponseModelContainer: Codable {
+    var itemsList: [NavigationResponseModel]
 }
 
-struct NavigationItemModel: Codable, Identifiable {
+struct NavigationResponseModel: Codable, Identifiable {
     var name: String
     var treeId: UInt64
     var id: UInt64
     var urlName: String
-    var detailsList: [NavigationSubItemModel]?
+    var detailsList: [NavigationLev1ItemModel]?
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -28,12 +28,13 @@ struct NavigationItemModel: Codable, Identifiable {
 
 }
 
-struct NavigationSubItemModel: Codable, Identifiable {
+
+struct NavigationLev1ItemModel: Codable, Identifiable {
     var name: String
     var id: UInt64
     var type: String
     var urlName: String
-    var detailsList: [NavigationSubItemModel]?
+    var detailsList: [NavigationLev2ItemModel]?
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -46,5 +47,35 @@ struct NavigationSubItemModel: Codable, Identifiable {
 }
 
 
+struct NavigationLev2ItemModel: Codable, Identifiable {
+    var name: String
+    var id: UInt64
+    var type: String
+    var urlName: String
+    var detailsList: [NavigationLev3ItemModel]?
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case id
+        case type
+        case urlName = "url-name"
+        case detailsList = "meta-tags"
+    }
+
+}
 
 
+struct NavigationLev3ItemModel: Codable, Identifiable {
+    var name: String
+    var id: UInt64
+    var type: String
+    var urlName: String
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case id
+        case type
+        case urlName = "url-name"
+    }
+
+}

@@ -9,8 +9,11 @@ import Foundation
 
 protocol EventsManagerDelegate: class {
     func viewControllerDidLoad()
+    func setModel(model: NavigationItemUIModel)
 }
 
 protocol EventsControllerDelegate: BaseControllerDelegate {
-    func setModel(model: NavigationUIModel)
+    func setModel(model: NavigationItemUIModel)
+    func showAlert(errorMessage: String)
+    func setEventsModel(model: [EventSingleUIModel])
 }

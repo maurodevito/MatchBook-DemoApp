@@ -29,9 +29,14 @@ class NavigationMenuService {
             }
             let decoder = JSONDecoder()
             do {
-                let jsonResponse = try decoder.decode([NavigationItemModel].self, from: data)
-                let navResponseModel = NavigationResponseModel(itemsList: jsonResponse)
-                promise.success(navResponseModel)
+                let jsonResponse = try decoder.decode([NavigationResponseModel].self, from: data)
+                
+                let navResponseModelContainer = NavigationResponseModelContainer(itemsList: jsonResponse)
+                if navResponseModelContainer.itemsList.count > 0, navResponseModelContainer.itemsList[0].name == "Sport" {
+                    let navResponseModel = navResponseModelContainer.itemsList[0]
+                    promise.success(navResponseModel)
+                }
+                
             } catch {
                 promise.failure(error)
             }

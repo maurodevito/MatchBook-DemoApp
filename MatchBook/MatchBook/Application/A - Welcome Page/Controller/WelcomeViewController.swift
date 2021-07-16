@@ -41,7 +41,7 @@ class WelcomeViewController: BaseViewController<WelcomeManager> {
 }
 
 extension WelcomeViewController: NavigationSelectionDelegate {
-    func selectedItem(_ item: NavigationUIModel) {
+    func selectedItem(_ item: NavigationItemUIModel) {
         let eventVC = EventsViewController.storyboardInstance()
         self.navigationItem.backButtonTitle = "Home"
         eventVC.setModel(model: item)

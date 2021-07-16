@@ -9,4 +9,5 @@ import Foundation
 
 enum API: String {
     case navigation = "https://www.matchbook.com/edge/rest/navigation"
+    case events = "https://www.matchbook.com/edge/rest/events?language=en&currency=EUR&exchange-type=back-lay&odds-type=DECIMAL&price-depth=1&per-page=100&market-states=open&runner-states=open&market-auto-sequence=true"
 }

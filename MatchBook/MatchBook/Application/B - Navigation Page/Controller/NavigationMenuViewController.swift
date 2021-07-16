@@ -8,11 +8,11 @@
 import UIKit
 
 protocol NavigationSelectionDelegate {
-    func selectedItem(_ item: NavigationUIModel)
+    func selectedItem(_ item: NavigationItemUIModel)
 }
 
 class NavigationMenuViewController: BaseViewController<NavigationMenuManager> {
-    private var model: [NavigationUIModel] = [NavigationUIModel]()
+    private var model: [NavigationItemUIModel] = [NavigationItemUIModel]()
     @IBOutlet weak var tableView: UITableView!
     private let cellIdentifier = "NavigationMenuTableViewCellIdentifier"
     var selectionDelegate: NavigationSelectionDelegate?
@@ -31,10 +31,7 @@ class NavigationMenuViewController: BaseViewController<NavigationMenuManager> {
         }()
         
         let nib = UINib(nibName: "NavigationMenuTableViewCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: cellIdentifier)
-//        self.addNavigationBar()
-        
-        
+        self.tableView.register(nib, forCellReuseIdentifier: cellIdentifier)        
         self.manager.viewControllerDelegate = self
         self.manager.viewControllerDidLoad()
     }
@@ -48,16 +45,6 @@ class NavigationMenuViewController: BaseViewController<NavigationMenuManager> {
         self.view.window!.layer.add(transition, forKey: kCATransition)
         dismiss(animated: false)
     }
-
-//    private func addNavigationBar() {
-//        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
-//        view.addSubview(navBar)
-//
-//        let navItem = UINavigationItem(title: "SomeTitle")
-//        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(closeNavigationMenuViewController))
-//        navItem.rightBarButtonItem = doneItem
-//        navBar.setItems([navItem], animated: false)
-//    }
 }
 
 extension NavigationMenuViewController: UITableViewDelegate, UITableViewDataSource {
@@ -81,8 +68,8 @@ extension NavigationMenuViewController: UITableViewDelegate, UITableViewDataSour
 
 
 extension NavigationMenuViewController: NavigationMenuControllerDelegate {
-    func setModel(model: [NavigationUIModel]) {
-        self.model = model
+    func setModel(model: NavigationUIModel) {
+        self.model = model.items
         self.tableView.reloadData()
     }
 

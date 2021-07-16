@@ -23,10 +23,9 @@ class NavigationMenuTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setupCell(item: NavigationUIModel) {
+    func setupCell(item: NavigationItemUIModel) {
         self.labelName.text = item.name
         self.translatesAutoresizingMaskIntoConstraints = false
-//        let leftSpace = self.leftSpaceLabelName.constant
         self.leftSpaceLabelName.constant = leftSpace + (leftSpace * CGFloat(item.level.rawValue) * 2)
     }
     
