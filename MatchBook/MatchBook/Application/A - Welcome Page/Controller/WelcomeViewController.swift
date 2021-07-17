@@ -8,11 +8,6 @@
 import UIKit
 
 class WelcomeViewController: BaseViewController<WelcomeManager> {
-
-//    public static func storyboardInstance() -> WelcomeViewController {
-//        let storyboard = UIStoryboard(name: "Welcome", bundle: nil)
-//        return (storyboard.instantiateViewController(withIdentifier: "welcomeStoryboardId") as? WelcomeViewController)!
-//    }
     
     public static func storyboardInstance() -> UINavigationController {
         let storyboard = UIStoryboard(name: "Welcome", bundle: nil)

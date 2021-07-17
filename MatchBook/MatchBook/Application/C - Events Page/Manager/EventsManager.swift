@@ -9,9 +9,7 @@ import Foundation
 
 class EventsManager: BaseManager {
     private var modelNavUIModel: NavigationItemUIModel?
-    private var model: EventsResponseModel?
-    private var modelEventsUIModel: EventsUIModel?
-    private var previousRespModelString: String = ""
+    private var modelPrecEventsUIModel: EventsUIModel?
     weak var viewControllerDelegate: EventsControllerDelegate!
     var timer: Timer?
     
@@ -20,10 +18,16 @@ class EventsManager: BaseManager {
         if let modelNavUIModel = self.modelNavUIModel {
             let service = EventsService()
             service.getEventsFromAPI(urlEventName: modelNavUIModel.url).onSuccess { (response) in
-                self.model = response
                 let eventsUIModel = EventsUIModel(eventsRespModel: response)
-                self.modelEventsUIModel = eventsUIModel
-                self.viewControllerDelegate?.setEventsModel(model: eventsUIModel.events)
+                
+                if self.modelPrecEventsUIModel != eventsUIModel {
+                    self.modelPrecEventsUIModel = eventsUIModel
+                    self.viewControllerDelegate?.setEventsModel(model: eventsUIModel.events)
+                    print("YES - refresh table view")
+                } else {
+                    print("NO - refresh table view")
+                }
+                
                 if self.viewControllerDelegate != nil {
                     self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.getEventsResponseModel), userInfo: nil, repeats: false)
                 } else {
@@ -44,9 +48,6 @@ class EventsManager: BaseManager {
 
 extension EventsManager: EventsManagerDelegate {
     func viewControllerDidLoad() {
-//        if self.modelNavUIModel != nil{
-//            self.getEventsResponseModel()
-//        }
     }
     
     func setModel(model: NavigationItemUIModel) {

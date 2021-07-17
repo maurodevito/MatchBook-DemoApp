@@ -7,9 +7,14 @@
 
 import Foundation
 
-struct EventsUIModel {
-    
+struct EventsUIModel: Equatable {
+
     var events: [EventSingleUIModel]
+    
+    static func == (lhs: EventsUIModel, rhs: EventsUIModel) -> Bool {
+        let isEqual = lhs.events == rhs.events
+        return isEqual
+    }
     
     init(eventsRespModel: EventsResponseModel) {
         var events = [EventSingleUIModel]()
@@ -71,17 +76,37 @@ struct EventsUIModel {
         }
 }
 
-struct EventSingleUIModel {
+struct EventSingleUIModel: Equatable {
+    
     var name: String
     var date: String
     var market: String
     var runners: [EventRunnerUIModel]
-    
+
+    static func == (lhs: EventSingleUIModel, rhs: EventSingleUIModel) -> Bool {
+        let isEqual: Bool = (
+                                (lhs.name == rhs.name) &&
+                                (lhs.date == rhs.date) &&
+                                (lhs.market == rhs.market) &&
+                                (lhs.runners == rhs.runners)
+                            )
+        return isEqual
+    }
 }
 
 
-struct EventRunnerUIModel {
+struct EventRunnerUIModel: Equatable {
     var name: String
     var firstBackPrice: String
     var firstLayPrice: String
+    
+    static func == (lhs: EventRunnerUIModel, rhs: EventRunnerUIModel) -> Bool {
+        let isEqual: Bool = (
+                                (lhs.name == rhs.name) &&
+                                (lhs.firstBackPrice == rhs.firstBackPrice) &&
+                                (lhs.firstLayPrice == rhs.firstLayPrice)
+                            )
+        return isEqual
+    }
+
 }
