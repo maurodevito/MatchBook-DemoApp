@@ -13,28 +13,47 @@ class EventsService {
     
     func getEventsFromAPI(urlEventName: String) -> Future<EventsResponseModel, Error> {
         let promise = Promise<EventsResponseModel, Error>()
-        let urlString = "\(API.events.rawValue)&tag-url-names=\(urlEventName)"
-        let url = URL(string: urlString)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard error == nil else {
-                return promise.failure(error!)
-            }
-            guard let data = data else {
-                let error = CustomMDVError.getNavigationItemError("No data availables")
-                return promise.failure(error)
-            }
+        
+        if ProcessInfo.processInfo.environment["ENV_SCHEME"] == "PRODUCTION" {
+            let urlString = "\(API.events.rawValue)&tag-url-names=\(urlEventName)"
+            let url = URL(string: urlString)!
             
-            let decoder = JSONDecoder()
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                guard error == nil else {
+                    return promise.failure(error!)
+                }
+                guard let data = data else {
+                    let error = CustomMDVError.getNavigationItemError("No data availables")
+                    return promise.failure(error)
+                }
+                
+                do {
+//                    if let jsonString = String(data: data, encoding: .utf8) {
+//                             print(jsonString)
+//                    }
+                    let jsonResponse = try JSONDecoder().decode(EventsResponseModel.self, from: data)
+                    let eventResponseModel: EventsResponseModel = jsonResponse
+                    promise.success(eventResponseModel)
+                } catch {
+                    promise.failure(error)
+                }
+            }.resume()
+        } else { // ProcessInfo.processInfo.environment["ENV_SCHEME"] == "MOCK"
             do {
-                let jsonResponse = try decoder.decode(EventsResponseModel.self, from: data)
+                let url = API.returnURL(for: .events)                
+                let data = try Data(contentsOf: url, options: .mappedIfSafe)
+                let jsonResponse = try JSONDecoder().decode(EventsResponseModel.self, from: data)
                 let eventResponseModel: EventsResponseModel = jsonResponse
                 promise.success(eventResponseModel)
+
             } catch {
                 promise.failure(error)
             }
-        }.resume()
+        }
+
         return promise.future
     }
 

@@ -28,26 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9A4133B269D93680068293A"
-               BuildableName = "MatchBookTests.xctest"
-               BlueprintName = "MatchBookTests"
-               ReferencedContainer = "container:MatchBook.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9A41346269D93680068293A"
-               BuildableName = "MatchBookUITests.xctest"
-               BlueprintName = "MatchBookUITests"
-               ReferencedContainer = "container:MatchBook.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -73,7 +53,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "ENV_SCHEME"
-            value = "PRODUCTION"
+            value = "MOCK"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
