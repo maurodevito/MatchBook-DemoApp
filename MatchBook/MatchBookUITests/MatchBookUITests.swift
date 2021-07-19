@@ -22,6 +22,7 @@ class MatchBookUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    /*
     func testExample() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
@@ -29,6 +30,27 @@ class MatchBookUITests: XCTestCase {
 
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+    }
+ */
+    
+    func testNavigationScrollandTap(){
+        let app = XCUIApplication()
+        app.launch()
+        app.navigationBars.buttons["Menu"].tap()
+        
+        let tableView = app.descendants(matching: .table).firstMatch
+        guard let firstCell = tableView.cells.allElementsBoundByIndex.first else { return }
+        guard let lastCell = tableView.cells.allElementsBoundByIndex.last else { return }
+        
+        
+        let MAX_SCROLLS = 2
+        var count = 0
+        while lastCell.isHittable == false && count < MAX_SCROLLS {
+            app.swipeUp()
+            count += 1
+        }
+        
+        firstCell.tap()
     }
 
     func testLaunchPerformance() throws {
@@ -39,4 +61,20 @@ class MatchBookUITests: XCTestCase {
             }
         }
     }
+}
+
+
+extension XCUIElement {
+
+    func scrollToElement(element: XCUIElement) {
+        while !element.visible() {
+            swipeUp()
+        }
+    }
+
+    func visible() -> Bool {
+        guard self.exists && !self.frame.isEmpty else { return false }
+        return XCUIApplication().windows.element(boundBy: 0).frame.contains(self.frame)
+    }
+
 }

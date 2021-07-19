@@ -12,7 +12,7 @@ class EventsViewController: BaseViewController<EventsManager> {
     @IBOutlet weak var tableView: UITableView!
     private var model: [EventSingleUIModel] = [EventSingleUIModel]()
     private let cellIdentifier = "EventsTableViewCellIdentifier"
-    let rowHeight: CGFloat = 85
+    private let rowHeight: CGFloat = 85
     
     
     public static func storyboardInstance() -> EventsViewController {
@@ -78,7 +78,7 @@ extension EventsViewController: EventsControllerDelegate {
         self.manager.setModel(model: model)
     }
     
-    func setEventsModel(model: [EventSingleUIModel]) {
+    func showEvents(model: [EventSingleUIModel]) {
         self.model = model
         self.tableView.reloadData()
     }

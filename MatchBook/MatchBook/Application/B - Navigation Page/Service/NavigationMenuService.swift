@@ -14,8 +14,6 @@ class NavigationMenuService {
         let promise = Promise<NavigationResponseModel, Error>()
         let url = API.returnURL(for: .navigation)
 
-
-        
         if ProcessInfo.processInfo.environment["ENV_SCHEME"] == "PRODUCTION" {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
@@ -33,8 +31,11 @@ class NavigationMenuService {
                     let jsonResponse = try JSONDecoder().decode([NavigationResponseModel].self, from: data)
                     let navResponseModelContainer = NavigationResponseModelContainer(itemsList: jsonResponse)
                     if navResponseModelContainer.itemsList.count > 0, navResponseModelContainer.itemsList[0].name == "Sport" {
-                        let navResponseModel = navResponseModelContainer.itemsList[0]
+                        let navResponseModel: NavigationResponseModel = navResponseModelContainer.itemsList[0]
                         promise.success(navResponseModel)
+                    } else {
+                        let error = CustomMDVError.getNavigationItemError("No data availables")
+                        promise.failure(error)
                     }
                 } catch {
                     promise.failure(error)
@@ -48,6 +49,9 @@ class NavigationMenuService {
                 if navResponseModelContainer.itemsList.count > 0, navResponseModelContainer.itemsList[0].name == "Sport" {
                     let navResponseModel = navResponseModelContainer.itemsList[0]
                     promise.success(navResponseModel)
+                } else {
+                    let error = CustomMDVError.getNavigationItemError("No data availables")
+                    promise.failure(error)
                 }
             } catch {
                 promise.failure(error)
@@ -55,6 +59,5 @@ class NavigationMenuService {
         }
         return promise.future
     }
-
     
 }

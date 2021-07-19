@@ -31,9 +31,7 @@ class EventsService {
                 }
                 
                 do {
-//                    if let jsonString = String(data: data, encoding: .utf8) {
-//                             print(jsonString)
-//                    }
+//                    print(String(data: data, encoding: .utf8) ?? "-")
                     let jsonResponse = try JSONDecoder().decode(EventsResponseModel.self, from: data)
                     let eventResponseModel: EventsResponseModel = jsonResponse
                     promise.success(eventResponseModel)

@@ -15,5 +15,5 @@ protocol EventsManagerDelegate: class {
 protocol EventsControllerDelegate: BaseControllerDelegate {
     func setModel(model: NavigationItemUIModel)
     func showAlert(errorMessage: String)
-    func setEventsModel(model: [EventSingleUIModel])
+    func showEvents(model: [EventSingleUIModel])
 }

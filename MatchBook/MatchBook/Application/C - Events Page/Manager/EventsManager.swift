@@ -16,13 +16,16 @@ class EventsManager: BaseManager {
     @objc private func getEventsResponseModel() {
         print("EventsManager: update model")
         if let modelNavUIModel = self.modelNavUIModel {
+            if self.modelPrecEventsUIModel == nil {
+                self.viewControllerDelegate?.showLoader()
+            }
             let service = EventsService()
             service.getEventsFromAPI(urlEventName: modelNavUIModel.url).onSuccess { (response) in
                 let eventsUIModel = EventsUIModel(eventsRespModel: response)
                 
                 if self.modelPrecEventsUIModel != eventsUIModel {
                     self.modelPrecEventsUIModel = eventsUIModel
-                    self.viewControllerDelegate?.setEventsModel(model: eventsUIModel.events)
+                    self.viewControllerDelegate?.showEvents(model: eventsUIModel.events)
                     print("YES - refresh table view")
                 } else {
                     print("NO - refresh table view")
@@ -37,11 +40,9 @@ class EventsManager: BaseManager {
             }.onFailure { (error) in
                 self.viewControllerDelegate.showAlert(errorMessage: "No data availables")
             }
+            self.viewControllerDelegate?.hideLoader()
         }
     }
-    
-
-
     
 }
 

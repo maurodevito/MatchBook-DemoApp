@@ -20,6 +20,34 @@
                ReferencedContainer = "container:MatchBook.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C9A4133B269D93680068293A"
+               BuildableName = "MatchBookTests.xctest"
+               BlueprintName = "MatchBookTests"
+               ReferencedContainer = "container:MatchBook.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C9A41346269D93680068293A"
+               BuildableName = "MatchBookUITests.xctest"
+               BlueprintName = "MatchBookUITests"
+               ReferencedContainer = "container:MatchBook.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,6 +56,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C9A4133B269D93680068293A"
+               BuildableName = "MatchBookTests.xctest"
+               BlueprintName = "MatchBookTests"
+               ReferencedContainer = "container:MatchBook.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C9A41346269D93680068293A"
+               BuildableName = "MatchBookUITests.xctest"
+               BlueprintName = "MatchBookUITests"
+               ReferencedContainer = "container:MatchBook.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

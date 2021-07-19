@@ -8,24 +8,20 @@
 import Foundation
 
 class NavigationMenuManager: BaseManager {
-    var model: NavigationResponseModel?
     weak var viewControllerDelegate: NavigationMenuControllerDelegate!
-    
     
     private func getNavigationResponseModel(){
         let service = NavigationMenuService()
         service.getItemsFromAPI().onSuccess { (responseModel) in
-            self.model = responseModel
             let navigationUIModel = NavigationUIModel(navResponseModel: responseModel)
-            self.viewControllerDelegate.setModel(model: navigationUIModel)
-    
-//            self.viewControllerDelegate.setModel(model: listNavUIModel.flatMap({$0}))
+            self.viewControllerDelegate.hideLoader()
+            self.viewControllerDelegate.showTable(model: navigationUIModel)
         }.onFailure { (error) in
+            self.viewControllerDelegate.hideLoader()
             self.viewControllerDelegate.showAlert(errorMessage: "No data availables")
         }
     }
-    
-    
+
 }
 
 
@@ -34,9 +30,8 @@ extension NavigationMenuManager: NavigationMenuManagerDelegate {
         print("manager must openEvent")
     }
     
-    
-    
     func viewControllerDidLoad() {
+        self.viewControllerDelegate.showLoader()
         self.getNavigationResponseModel()
     }
     

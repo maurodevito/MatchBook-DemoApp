@@ -20,9 +20,7 @@ class WelcomeViewController: BaseViewController<WelcomeManager> {
         super.viewDidLoad()
 
         self.title = "Matchbook"
-        self.navigationItem.leftBarButtonItem = {
-            UIBarButtonItem(title: "Menu", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.openMenu))
-        }()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.openMenu))
         
         self.manager.viewControllerDelegate = self
         self.manager.viewControllerDidLoad()

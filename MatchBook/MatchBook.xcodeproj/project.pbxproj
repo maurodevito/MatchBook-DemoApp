@@ -36,7 +36,6 @@
 		C9A4134C269D93680068293A /* MatchBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4134B269D93680068293A /* MatchBookUITests.swift */; };
 		C9CE3B4A269DFB86000B947D /* navigation.mock in Resources */ = {isa = PBXBuildFile; fileRef = C9CE3B49269DFB86000B947D /* navigation.mock */; };
 		C9E5281C269DF1990091A890 /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E5281B269DF1990091A890 /* EndPoints.swift */; };
-		C9E52827269DF3BE0091A890 /* WelcomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E52826269DF3BE0091A890 /* WelcomeService.swift */; };
 		C9E5282C269DF4120091A890 /* NavigationMenuService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E5282B269DF4120091A890 /* NavigationMenuService.swift */; };
 		C9E52831269DF4930091A890 /* NavigationResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E52830269DF4930091A890 /* NavigationResponseModel.swift */; };
 		C9FD6C0C269F195F002BF9A0 /* EventsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD6C0B269F195F002BF9A0 /* EventsResponseModel.swift */; };
@@ -107,7 +106,6 @@
 		C9A4134D269D93680068293A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9CE3B49269DFB86000B947D /* navigation.mock */ = {isa = PBXFileReference; lastKnownFileType = text; path = navigation.mock; sourceTree = "<group>"; };
 		C9E5281B269DF1990091A890 /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
-		C9E52826269DF3BE0091A890 /* WelcomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeService.swift; sourceTree = "<group>"; };
 		C9E5282B269DF4120091A890 /* NavigationMenuService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuService.swift; sourceTree = "<group>"; };
 		C9E52830269DF4930091A890 /* NavigationResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationResponseModel.swift; sourceTree = "<group>"; };
 		C9FD6C0B269F195F002BF9A0 /* EventsResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsResponseModel.swift; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 		C9025682269DD41F007A06B6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				C9E52826269DF3BE0091A890 /* WelcomeService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -711,7 +708,6 @@
 				C9092FCA269F0CB6007A451C /* EventsService.swift in Sources */,
 				C90256C6269DDAC6007A06B6 /* NavigationProtocol.swift in Sources */,
 				C9025643269DC209007A06B6 /* BaseViewController.swift in Sources */,
-				C9E52827269DF3BE0091A890 /* WelcomeService.swift in Sources */,
 				C90256A9269DD62E007A06B6 /* WelcomeManager.swift in Sources */,
 				C9FD6C1F26A17085002BF9A0 /* EventRunnerTableViewCell.swift in Sources */,
 				C9E5281C269DF1990091A890 /* EndPoints.swift in Sources */,

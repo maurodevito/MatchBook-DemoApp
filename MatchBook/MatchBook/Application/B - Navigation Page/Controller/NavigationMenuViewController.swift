@@ -26,12 +26,11 @@ class NavigationMenuViewController: BaseViewController<NavigationMenuManager> {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = ""
-        self.navigationItem.rightBarButtonItem = {
-            UIBarButtonItem(title: "Close", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.closeNavigationMenuViewController))
-        }()
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.closeNavigationMenuViewController))
+
         let nib = UINib(nibName: "NavigationMenuTableViewCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: cellIdentifier)        
+        self.tableView.register(nib, forCellReuseIdentifier: cellIdentifier)
+        
         self.manager.viewControllerDelegate = self
         self.manager.viewControllerDidLoad()
     }
@@ -43,9 +42,10 @@ class NavigationMenuViewController: BaseViewController<NavigationMenuManager> {
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromRight // kCATransitionFromLeft
         self.view.window!.layer.add(transition, forKey: kCATransition)
-        dismiss(animated: false)
+        self.dismiss(animated: false)
     }
 }
+
 
 extension NavigationMenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,11 +68,11 @@ extension NavigationMenuViewController: UITableViewDelegate, UITableViewDataSour
 
 
 extension NavigationMenuViewController: NavigationMenuControllerDelegate {
-    func setModel(model: NavigationUIModel) {
+    func showTable(model: NavigationUIModel) {
         self.model = model.items
         self.tableView.reloadData()
     }
-
+    
     func showAlert(errorMessage: String) {
         let alertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
         let retryAction = UIAlertAction(title: "Retry", style: .default) { (retry) in
@@ -85,10 +85,5 @@ extension NavigationMenuViewController: NavigationMenuControllerDelegate {
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
     }
-    
-    func gotoEventPage() {
-        print("goto event page")
-    }
-    
-    
+
 }

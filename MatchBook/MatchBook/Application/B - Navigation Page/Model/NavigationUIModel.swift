@@ -15,9 +15,7 @@ enum NavigationItemLevel: Int {
 
 
 struct NavigationUIModel {
-
     var items: [NavigationItemUIModel]
-    
     
     init(navResponseModel: NavigationResponseModel) {
         var items = [NavigationItemUIModel]()

@@ -13,7 +13,8 @@ import Foundation
 
 
 class BaseManager {
-//    weak var viewControllerDelegate: BaseViewController<BaseManager>!
+    
+//    weak var viewControllerDelegateXX: BaseControllerDelegate!
     
     required init() {
     }
