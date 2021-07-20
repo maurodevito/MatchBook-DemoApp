@@ -36,9 +36,7 @@ class MatchBookTests: XCTestCase {
             let expectation = self.expectation(description: "1) Call API; 2) get ResponseModel; 3) convert to UIModel")
             
             var navigationUIModel: NavigationUIModel?
-            let service = NavigationMenuService()
-            
-            service.getItemsFromAPI().onSuccess { (responseModel) in
+            NavigationMenuService.getItemsFromAPI().onSuccess { (responseModel) in
                 navigationUIModel = NavigationUIModel(navResponseModel: responseModel)
                 expectation.fulfill()
             }.onFailure { (error) in
@@ -65,9 +63,7 @@ class MatchBookTests: XCTestCase {
             var eventsUIModel: EventsUIModel?
             
             let urlToCall = "cricket"
-            
-            let service = EventsService()
-            service.getEventsFromAPI(urlEventName: urlToCall).onSuccess { (response) in
+            EventsService.getEventsFromAPI(urlEventName: urlToCall).onSuccess { (response) in
                 eventsUIModel = EventsUIModel(eventsRespModel: response)
                 expectation.fulfill()
             }.onFailure { (error) in

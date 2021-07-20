@@ -19,26 +19,25 @@ class EventsManager: BaseManager {
             if self.modelPrecEventsUIModel == nil {
                 self.viewControllerDelegate?.showLoader()
             }
-            let service = EventsService()
-            service.getEventsFromAPI(urlEventName: modelNavUIModel.url).onSuccess { (response) in
+            EventsService.getEventsFromAPI(urlEventName: modelNavUIModel.url).onSuccess {[weak self] (response) in
                 let eventsUIModel = EventsUIModel(eventsRespModel: response)
                 
-                if self.modelPrecEventsUIModel != eventsUIModel {
-                    self.modelPrecEventsUIModel = eventsUIModel
-                    self.viewControllerDelegate?.showEvents(model: eventsUIModel.events)
+                if self?.modelPrecEventsUIModel != eventsUIModel {
+                    self?.modelPrecEventsUIModel = eventsUIModel
+                    self?.viewControllerDelegate?.showEvents(model: eventsUIModel.events)
                     print("YES - refresh table view")
                 } else {
                     print("NO - refresh table view")
                 }
                 
-                if self.viewControllerDelegate != nil {
-                    self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.getEventsResponseModel), userInfo: nil, repeats: false)
+                if self?.viewControllerDelegate != nil {
+                    self?.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self!, selector: #selector(self?.getEventsResponseModel), userInfo: nil, repeats: false)
                 } else {
-                    self.timer = nil
+                    self?.timer = nil
                 }
 
-            }.onFailure { (error) in
-                self.viewControllerDelegate.showAlert(errorMessage: "No data availables")
+            }.onFailure {[weak self] (error) in
+                self?.viewControllerDelegate.showAlert(errorMessage: "No data availables")
             }
             self.viewControllerDelegate?.hideLoader()
         }

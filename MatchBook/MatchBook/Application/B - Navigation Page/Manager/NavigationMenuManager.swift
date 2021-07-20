@@ -11,14 +11,13 @@ class NavigationMenuManager: BaseManager {
     weak var viewControllerDelegate: NavigationMenuControllerDelegate!
     
     private func getNavigationResponseModel(){
-        let service = NavigationMenuService()
-        service.getItemsFromAPI().onSuccess { (responseModel) in
+        NavigationMenuService.getItemsFromAPI().onSuccess {[weak self] (responseModel) in
             let navigationUIModel = NavigationUIModel(navResponseModel: responseModel)
-            self.viewControllerDelegate.hideLoader()
-            self.viewControllerDelegate.showTable(model: navigationUIModel)
-        }.onFailure { (error) in
-            self.viewControllerDelegate.hideLoader()
-            self.viewControllerDelegate.showAlert(errorMessage: "No data availables")
+            self?.viewControllerDelegate.hideLoader()
+            self?.viewControllerDelegate.showTable(model: navigationUIModel)
+        }.onFailure {[weak self] (error) in
+            self?.viewControllerDelegate.hideLoader()
+            self?.viewControllerDelegate.showAlert(errorMessage: "No data availables")
         }
     }
 

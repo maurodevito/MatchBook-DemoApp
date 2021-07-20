@@ -10,23 +10,32 @@ import BrightFutures
 
 class NavigationMenuService {
  
-    func getItemsFromAPI() -> Future<NavigationResponseModel, Error>{
+    static func getItemsFromAPI() -> Future<NavigationResponseModel, Error>{
         let promise = Promise<NavigationResponseModel, Error>()
         let url = API.returnURL(for: .navigation)
 
+        
+        
         if ProcessInfo.processInfo.environment["ENV_SCHEME"] == "PRODUCTION" {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-type")
+            
+
             URLSession.shared.dataTask(with: request) { (data, response, error) in
                 guard error == nil else {
                     return promise.failure(error!)
+                }
+                guard let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode == 200 else {
+                    let error = CustomMDVError.getNavigationItemError("No data availables")
+                    return promise.failure(error)
                 }
                 guard let data = data else {
                     let error = CustomMDVError.getNavigationItemError("No data availables")
                     return promise.failure(error)
                 }
+                
                 do {
                     let jsonResponse = try JSONDecoder().decode([NavigationResponseModel].self, from: data)
                     let navResponseModelContainer = NavigationResponseModelContainer(itemsList: jsonResponse)
