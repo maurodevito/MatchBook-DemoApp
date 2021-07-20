@@ -9,4 +9,9 @@ import Foundation
 
 enum CustomMDVError: Error {
     case getNavigationItemError(String)
+    case other(Error)
+    
+    static func map(_ error: Error) -> CustomMDVError {
+      return (error as? CustomMDVError) ?? .other(error)
+    }
 }

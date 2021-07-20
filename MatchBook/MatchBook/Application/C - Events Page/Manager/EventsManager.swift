@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import  Combine
 
 class EventsManager: BaseManager {
     private var modelNavUIModel: NavigationItemUIModel?
     private var modelPrecEventsUIModel: EventsUIModel?
     weak var viewControllerDelegate: EventsControllerDelegate!
-    var timer: Timer?
+    
+    var observer: AnyCancellable?
     
     @objc private func getEventsResponseModel() {
         print("EventsManager: update model")
@@ -19,33 +21,34 @@ class EventsManager: BaseManager {
             if self.modelPrecEventsUIModel == nil {
                 self.viewControllerDelegate?.showLoader()
             }
-            let service = EventsService()
-            service.getEventsFromAPI(urlEventName: modelNavUIModel.url).onSuccess { (response) in
-                let eventsUIModel = EventsUIModel(eventsRespModel: response)
-                
-                if self.modelPrecEventsUIModel != eventsUIModel {
-                    self.modelPrecEventsUIModel = eventsUIModel
-                    self.viewControllerDelegate?.showEvents(model: eventsUIModel.events)
-                    print("YES - refresh table view")
-                } else {
-                    print("NO - refresh table view")
-                }
-                
-                if self.viewControllerDelegate != nil {
-                    self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.getEventsResponseModel), userInfo: nil, repeats: false)
-                } else {
-                    self.timer = nil
-                }
-
-            }.onFailure { (error) in
-                self.viewControllerDelegate.showAlert(errorMessage: "No data availables")
-            }
-            self.viewControllerDelegate?.hideLoader()
+            observer = EventsService.getEventsFromAPI(urlEventName: modelNavUIModel.url)
+                .receive(on: DispatchQueue.main)
+                .retry(3)
+                .sink(receiveCompletion: { [weak self] (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Finished")
+                    case .failure(let error):
+                        print(error)
+                        self?.viewControllerDelegate.hideLoader()
+                        self?.viewControllerDelegate.showAlert(errorMessage: "No data availables")
+                    }
+                },
+                      receiveValue: { [weak self] (response) in
+                            let eventsUIModel = EventsUIModel(eventsRespModel: response)
+                            if self?.modelPrecEventsUIModel != eventsUIModel {
+                                self?.modelPrecEventsUIModel = eventsUIModel
+                                self?.viewControllerDelegate?.showEvents(model: eventsUIModel.events)
+                                print("YES - refresh table view")
+                            } else {
+                                print("NO - refresh table view")
+                            }
+                        }
+                )
         }
     }
     
 }
-
 
 extension EventsManager: EventsManagerDelegate {
     func viewControllerDidLoad() {

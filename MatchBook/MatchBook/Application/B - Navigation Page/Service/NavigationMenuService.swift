@@ -6,10 +6,46 @@
 //
 
 import Foundation
-import BrightFutures
+import Combine
+//import BrightFutures
+
 
 class NavigationMenuService {
  
+    static func getItemsFromAPI() -> AnyPublisher<NavigationResponseModel?, CustomMDVError> {
+        let url = API.returnURL(for: .navigation)
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-type")
+        
+        
+        let config = URLSessionConfiguration.default
+        config.requestCachePolicy = .reloadIgnoringLocalCacheData
+        config.urlCache = nil
+        let session = URLSession(configuration: config)
+        return session.dataTaskPublisher(for: request)
+          .tryMap { response in
+            guard let httpURLResponse = response.response as? HTTPURLResponse, httpURLResponse.statusCode == 200 else {
+                throw CustomMDVError.getNavigationItemError("No data availables")
+            }
+            
+            let jsonResponse = try JSONDecoder().decode([NavigationResponseModel].self, from: response.data)
+            let navResponseModelContainer = NavigationResponseModelContainer(itemsList: jsonResponse)
+            if navResponseModelContainer.itemsList.count > 0, navResponseModelContainer.itemsList[0].name == "Sport" {
+                let navResponseModel: NavigationResponseModel = navResponseModelContainer.itemsList[0]
+                return navResponseModel
+            } else {
+                return nil
+            }
+          }
+//          .decode(type: [NavigationResponseModel].self, decoder: JSONDecoder())
+          .mapError { CustomMDVError.map($0) }
+          .eraseToAnyPublisher()
+    }
+    
+    
+    /*
     func getItemsFromAPI() -> Future<NavigationResponseModel, Error>{
         let promise = Promise<NavigationResponseModel, Error>()
         let url = API.returnURL(for: .navigation)
@@ -59,5 +95,6 @@ class NavigationMenuService {
         }
         return promise.future
     }
+ */
     
 }
