@@ -33,6 +33,7 @@ class MatchBookTests: XCTestCase {
     
     func testNavigationService_getModel() {
         measure {
+            /*
             let expectation = self.expectation(description: "1) Call API; 2) get ResponseModel; 3) convert to UIModel")
             
             var navigationUIModel: NavigationUIModel?
@@ -54,12 +55,14 @@ class MatchBookTests: XCTestCase {
             
             XCTAssertEqual(isModelLoaded, true, "Model has not been loaded")
             XCTAssertEqual(hasModelItems, true, "API responded, but didn't return any items")
+             */
         }
     }
     
     
     
     func testEventsService_getModel() {
+        /*
         measure {
             let expectation = self.expectation(description: "1) Call API; 2) get ResponseModel; 3) convert to UIModel")
             var eventsUIModel: EventsUIModel?
@@ -83,6 +86,7 @@ class MatchBookTests: XCTestCase {
             XCTAssertEqual(isModelLoaded, true, "Model has not been loaded")
             XCTAssertEqual(hasModelItems, true, "API responded, but didn't return any items")
         }
+ */
     }
     
 }
