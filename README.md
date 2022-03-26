@@ -11,3 +11,8 @@ There are two branches in this repository
 # Technical documents:
 - Technical assignment [link](iOS_Engineer_recruitment-tech_assignment.pdf)
 - Design pattern and Class Hierarchy scheme [link](Pattern&ClassHierarchy.pptx)
+
+# XCTests and UITests:
+In addition to the technical implementation, the project also includes:
+- XCTest
+- UITests
