@@ -2,13 +2,10 @@
 - ** Minimum version: iOS 12.1 **
 - ** Design Pattern MVP **
 
-# External libraries:
-- BrightFutures
-
 # Branches:
 There are two branches in this repository
-## main: asynchronous code implemented with [BrightFutures] (https://github.com/Thomvis/BrightFutures)
-## /features/combine: asynchronous code implemented with [Combine] (https://developer.apple.com/documentation/combine)
+- main: asynchronous code implemented with [BrightFutures] (https://github.com/Thomvis/BrightFutures)
+- /features/combine: asynchronous code implemented with [Combine] (https://developer.apple.com/documentation/combine)
 
 
 # Technical documents:
